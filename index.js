@@ -55,7 +55,7 @@ function gerarFaturaStr (fatura, pecas) {
       
   
       // créditos para próximas contratações
-      creditos = calcularCredito(apre);
+      creditos += calcularCredito(apre);
   
       // mais uma linha da fatura
       faturaStr += `  ${getPeca(apre).nome}: ${formatarMoeda(total)} (${apre.audiencia} assentos)\n`;
