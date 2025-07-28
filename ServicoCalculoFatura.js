@@ -27,10 +27,6 @@ class ServicoCalculoFatura {
     return creditos;
   }
 
-  getPeca(apre) {
-    return this.repo.getPeca(apre);
-  }
-
   calcularTotalApresentacao(apre) {
     let total = 0;
     const peca = this.repo.getPeca(apre);
@@ -52,14 +48,6 @@ class ServicoCalculoFatura {
         throw new Error(`Peça desconhecida: ${peca.tipo}`);
     }
     return total;
-  }
-
-  formatarMoeda(valor) {
-    return new Intl.NumberFormat("pt-BR", {
-      style: "currency",
-      currency: "BRL",
-      minimumFractionDigits: 2,
-    }).format(valor / 100);
   }
 }
 
