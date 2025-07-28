@@ -1,20 +1,19 @@
 class ServicoCalculoFatura {
-  constructor(fatura, pecas) {
-    this.fatura = fatura;
-    this.pecas = pecas;
+  constructor(repo) {
+    this.repo = repo;
   }
 
-  calcularTotalFatura() {
+  calcularTotalFatura(fatura) {
     let totalFatura = 0;
-    for (let apre of this.fatura.apresentacoes) {
+    for (let apre of fatura.apresentacoes) {
       totalFatura += this.calcularTotalApresentacao(apre);
     }
     return totalFatura;
   }
 
-  calcularTotalCreditos() {
+  calcularTotalCreditos(fatura) {
     let creditos = 0;
-    for (let apre of this.fatura.apresentacoes) {
+    for (let apre of fatura.apresentacoes) {
       creditos += this.calcularCredito(apre);
     }
     return creditos;
@@ -23,18 +22,18 @@ class ServicoCalculoFatura {
   calcularCredito(apre) {
     let creditos = 0;
     creditos += Math.max(apre.audiencia - 30, 0);
-    if (this.getPeca(apre).tipo === "comedia")
+    if (this.repo.getPeca(apre).tipo === "comedia")
       creditos += Math.floor(apre.audiencia / 5);
     return creditos;
   }
 
   getPeca(apre) {
-    return this.pecas[apre.id];
+    return this.repo.getPeca(apre);
   }
 
   calcularTotalApresentacao(apre) {
     let total = 0;
-    const peca = this.getPeca(apre);
+    const peca = this.repo.getPeca(apre);
     switch (peca.tipo) {
       case "tragedia":
         total = 40000;
